@@ -6,8 +6,8 @@ return {
     opts = {
         options = {
             theme = "jellybeans",
-            section_separators = { left = '', right = '' },
-            component_separators = { left = '', right = '' }
+            section_separators = { left = "", right = "" },
+            component_separators = { left = "", right = "" },
         },
     },
 }
