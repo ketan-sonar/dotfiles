@@ -31,10 +31,16 @@ return {
 
             cmp.setup({
                 mapping = {
+                    ["<CR>"] = cmp.mapping.confirm({select = false}),
                     ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-f>"] = cmp_action.luasnip_jump_forward(),
-                    ["<C-b>"] = cmp_action.luasnip_jump_backward(),
-                }
+                    ["<C-k>"] = cmp_action.luasnip_jump_forward(),
+                    ["<C-j>"] = cmp_action.luasnip_jump_backward(),
+                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
+                },
+                completion = {
+                    completeopt = "menu,menuone,noinsert",
+                },
             })
         end
     },
