@@ -1,3 +1,2 @@
-require("ketan.options")
+require("ketan.core")
 require("ketan.lazy")
-require("ketan.remaps")
