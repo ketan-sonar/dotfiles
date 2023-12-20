@@ -1,9 +1,11 @@
 set nocompatible
 
-" colorscheme desert
-
+set termguicolors
 syntax enable
 filetype plugin on
+
+colorscheme desert
+highlight Normal guibg=#181818
 
 set mouse=a
 
@@ -33,7 +35,6 @@ set undofile
 set scrolloff=4
 set colorcolumn=80
 " highlight ColorColumn ctermbg=lightgrey guibg=lightgrey
-set termguicolors
 
 set splitbelow
 set splitright
