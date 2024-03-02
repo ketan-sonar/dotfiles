@@ -20,7 +20,7 @@ vim.opt.termguicolors = true
 vim.opt.scrolloff = 4
 vim.opt.signcolumn = "yes"
 vim.opt.colorcolumn = "80"
-vim.opt.cursorline = true
+-- vim.opt.cursorline = true
 
 -- setup undodir
 vim.opt.swapfile = false

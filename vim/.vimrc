@@ -4,7 +4,8 @@ set termguicolors
 syntax enable
 filetype plugin on
 
-colorscheme desert
+colorscheme sorbet
+" highlight Normal guibg=#181818
 
 set mouse=a
 
