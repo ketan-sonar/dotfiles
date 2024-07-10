@@ -4,8 +4,7 @@ set termguicolors
 syntax enable
 filetype plugin on
 
-colorscheme sorbet
-" highlight Normal guibg=#181818
+colorscheme desert
 
 set mouse=a
 
@@ -43,3 +42,5 @@ runtime! ftplugin/man.vim
 
 set path+=**
 set wildmenu
+
+set rtp^="/Users/ketan/.opam/default/share/ocp-indent/vim"
