@@ -108,6 +108,26 @@ require("lazy").setup({
 	},
 
 	{
+		"kdheepak/lazygit.nvim",
+		cmd = {
+			"LazyGit",
+			"LazyGitConfig",
+			"LazyGitCurrentFile",
+			"LazyGitFilter",
+			"LazyGitFilterCurrentFile",
+		},
+		-- optional for floating window border decoration
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+		},
+		-- setting the keybinding for LazyGit with 'keys' is recommended in
+		-- order to load the plugin when the command is run for the first time
+		keys = {
+			{ "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
+		},
+	},
+
+	{
 		"mbbill/undotree",
 		config = function()
 			vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle, { desc = "[U]ndotreeToggle" })
@@ -503,7 +523,7 @@ require("lazy").setup({
 				lua = { "stylua" },
 				-- Conform can also run multiple formatters sequentially
 				python = { "isort", "black" },
-        python3 = { "isort", "black" },
+				python3 = { "isort", "black" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.
@@ -628,9 +648,9 @@ require("lazy").setup({
 		name = "moonfly",
 		lazy = false,
 		priority = 1000,
-    init = function ()
-      vim.cmd.colorscheme("moonfly")
-    end
+		init = function()
+			vim.cmd.colorscheme("moonfly")
+		end,
 	},
 
 	-- {
@@ -759,15 +779,15 @@ require("lazy").setup({
 				additional_vim_regex_highlighting = { "ruby" },
 			},
 			indent = { enable = true, disable = { "ruby" } },
-      incremental_selection = {
-        enable = true,
-        keymaps = {
-          init_selection = "<C-s>",
-          node_incremental = "<C-s>",
-          scope_incremental = false,
-          node_decremental = "<bs>",
-        },
-      },
+			incremental_selection = {
+				enable = true,
+				keymaps = {
+					init_selection = "<C-s>",
+					node_incremental = "<C-s>",
+					scope_incremental = false,
+					node_decremental = "<bs>",
+				},
+			},
 		},
 		config = function(_, opts)
 			-- [[ Configure Treesitter ]] See `:help nvim-treesitter`
