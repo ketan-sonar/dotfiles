@@ -4,7 +4,8 @@ set termguicolors
 syntax enable
 filetype plugin on
 
-colorscheme desert
+set background=dark
+color jellybeans
 
 set mouse=a
 
@@ -44,3 +45,5 @@ set path+=**
 set wildmenu
 
 set rtp^="/Users/ketan/.opam/default/share/ocp-indent/vim"
+
+set backspace=indent,eol,start
