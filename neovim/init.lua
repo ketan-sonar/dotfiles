@@ -3,7 +3,7 @@ vim.g.maplocalleader = " "
 
 vim.g.have_nerd_font = true
 
--- vim.opt.guicursor = ""
+vim.opt.guicursor = ""
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -11,7 +11,17 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "javascript", "javascriptreact", "typescript", "typescriptreact", "dart", "schema", "prisma", "css" },
+	pattern = {
+		"javascript",
+		"javascriptreact",
+		"typescript",
+		"typescriptreact",
+		"dart",
+		"schema",
+		"prisma",
+		"css",
+		"html",
+	},
 	callback = function()
 		vim.opt_local.tabstop = 2
 		vim.opt_local.softtabstop = 2
@@ -294,6 +304,13 @@ require("lazy").setup({
 
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
+		init_options = {
+			userLanguages = {
+				eelixir = "html-eex",
+				eruby = "erb",
+				rust = "html",
+			},
+		},
 		dependencies = {
 			-- Automatically install LSPs and related tools to stdpath for Neovim
 			"williamboman/mason.nvim",
@@ -670,33 +687,6 @@ require("lazy").setup({
 			vim.cmd.colorscheme("moonfly")
 		end,
 	},
-
-	-- {
-	-- 	"kepano/flexoki-neovim",
-	-- 	name = "flexoki",
-	--    init = function ()
-	--      vim.cmd.colorscheme("flexoki-dark")
-	--    end,
-	-- },
-
-	-- {
-	-- 	"EdenEast/nightfox.nvim",
-	-- 	init = function()
-	-- 		vim.cmd.colorscheme("carbonfox")
-	-- 	end,
-	-- },
-
-	-- {
-	-- 	"rebelot/kanagawa.nvim",
-	-- 	priority = 1000,
-	-- 	opts = {
-	-- 		commentStyle = { italic = false },
-	-- 		keywordStyle = { italic = false },
-	-- 	},
-	-- 	init = function()
-	-- 		vim.cmd.colorscheme("kanagawa-dragon")
-	-- 	end,
-	-- },
 
 	{
 		"nvim-tree/nvim-tree.lua",
