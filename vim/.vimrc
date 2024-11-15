@@ -5,7 +5,6 @@ syntax enable
 filetype plugin on
 
 set background=dark
-color jellybeans
 
 set mouse=a
 
