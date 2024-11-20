@@ -25,6 +25,8 @@ alias ls="ls --color=always --group-directories-first"
 alias la="ls --color=always -lah --group-directories-first"
 alias vi="nvim"
 
+[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
 [ -f /Users/ketan/.dart-cli-completion/bash-config.bash ] && . /Users/ketan/.dart-cli-completion/bash-config.bash || true
