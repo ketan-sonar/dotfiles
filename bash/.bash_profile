@@ -40,9 +40,18 @@ source /opt/homebrew/etc/bash_completion.d/forge
 source /opt/homebrew/etc/bash_completion.d/anvil
 source /opt/homebrew/etc/bash_completion.d/cast
 
+[[ -r $FVM_DIR/bash_completion ]] && \. $FVM_DIR/bash_completion
+
 eval "$(fnm env --use-on-cd --shell bash)"
 
-export GOPATH="$HOME/Developer/go"
+export DEV_DIR="$HOME/Developer"
+
+export GOPATH="$DEV_DIR/go"
 
 export PATH="$PATH:/Users/ketan/.foundry/bin"
-export PATH="$PATH:$HOME/Developer/github.com/ketan-sonar/brightme"
+export PATH="$PATH:$DEV_DIR/github.com/ketan-sonar/brightme"
+
+export PATH="/opt/homebrew/opt/openjdk/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk/include"
+
+export MANPAGER="nvim +Man!"
