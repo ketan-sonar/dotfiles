@@ -46,3 +46,10 @@ set wildmenu
 set rtp^="/Users/ketan/.opam/default/share/ocp-indent/vim"
 
 set backspace=indent,eol,start
+
+inoremap {<CR> {<CR>}<ESC>O
+inoremap [<CR> [<CR>]<ESC>O
+inoremap (<CR> (<CR>)<ESC>O
+
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
