@@ -14,7 +14,8 @@ function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ (\1$(parse_git_dirty))/"
 }
 
-PROMPT_COMMAND='RET_CODE=$?'
+# PROMPT_COMMAND='RET_CODE=$?'
+PROMPT_COMMAND='RET_CODE=0'
 
 # export PS1="\033[31m$(if [ -n "$RET_CODE" ] && [ $RET_CODE -ne 0 ]; then echo "$RET_CODE "; fi)\[\033[32m\]\W\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 export PS1="\[\033[32m\]\W\[\033[33m\]\$(parse_git_branch)\[\033[0m\] \[\033[31m\]\$(if [ \$RET_CODE -ne 0 ]; then echo \$RET_CODE '' ; fi)\[\033[0m\]\$ "
@@ -35,10 +36,6 @@ alias vi="nvim"
 [ -f /Users/ketan/.dart-cli-completion/bash-config.bash ] && . /Users/ketan/.dart-cli-completion/bash-config.bash || true
 ## [/Completion]
 
-export PATH="/opt/homebrew/opt/rustup/bin:$PATH"
-
-source /opt/homebrew/opt/rustup/etc/bash_completion.d/rustup
-
 [[ -r $FVM_DIR/bash_completion ]] && \. $FVM_DIR/bash_completion
 
 eval "$(fnm env --use-on-cd --shell bash)"
@@ -57,3 +54,10 @@ export MANPAGER="nvim +Man!"
 export JAVA_HOME="/opt/homebrew/opt/openjdk@17"
 export PATH="$JAVA_HOME/bin:$PATH"
 export CPPFLAGS="-I@JAVA_HOME/include"
+
+export PATH="/Users/ketan/.local/share/solana/install/active_release/bin:$PATH"
+
+export PATH="~/.cargo/bin:$PATH"
+. "$HOME/.cargo/env"
+
+export PATH="/Users/ketan/.local/share/solana/install/active_release/bin:$PATH"
