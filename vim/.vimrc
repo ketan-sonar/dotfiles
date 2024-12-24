@@ -4,6 +4,8 @@ set termguicolors
 syntax enable
 filetype plugin on
 
+" colorscheme darkblue
+
 set background=dark
 
 set mouse=a
@@ -51,5 +53,5 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap [<CR> [<CR>]<ESC>O
 inoremap (<CR> (<CR>)<ESC>O
 
-inoremap " ""<ESC>i
-inoremap ' ''<ESC>i
+" inoremap " ""<ESC>i
+" inoremap ' ''<ESC>i
