@@ -1,5 +1,6 @@
 return {
   "rose-pine/neovim",
+  enabled = false,
   config = function()
     require("rose-pine").setup({
       variant = "main",

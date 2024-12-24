@@ -1,7 +1,8 @@
 return {
   "marko-cerovac/material.nvim",
-  enabled = false,
+  enabled = true,
   config = function()
-    vim.cmd.colorscheme("material-deep-ocean")
-  end,
+    vim.g.material_style = "deep ocean"
+    vim.cmd.colorscheme("material")
+  end
 }
