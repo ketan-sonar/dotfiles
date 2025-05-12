@@ -4,7 +4,7 @@ set termguicolors
 syntax enable
 filetype plugin on
 
-" colorscheme darkblue
+colorscheme desert
 
 set background=dark
 
@@ -55,3 +55,5 @@ inoremap (<CR> (<CR>)<ESC>O
 
 " inoremap " ""<ESC>i
 " inoremap ' ''<ESC>i
+
+autocmd FileType solidity iabbrev uint uint256
