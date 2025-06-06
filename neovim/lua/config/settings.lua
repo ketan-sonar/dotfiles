@@ -1,7 +1,7 @@
 vim.opt.termguicolors = true
 vim.g.have_nerd_font = true
 
--- vim.opt.guicursor = ""
+vim.opt.guicursor = ""
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -39,6 +39,7 @@ vim.opt.listchars = { tab = "» ", space = "·", nbsp = "␣" }
 
 vim.opt.path:append("**")
 vim.opt.wildignore:append("*/node_modules/*")
+vim.opt.wildignore:append("*/target/*")
 
 vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<ESC>O", { noremap = true })
 vim.api.nvim_set_keymap("i", "[<CR>", "[<CR>]<ESC>O", { noremap = true })
