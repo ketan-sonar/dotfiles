@@ -1,0 +1,5 @@
+font-family = MesloLGS Nerd Font Mono
+font-size = 16
+theme = iTerm2 Tango Dark
+shell-integration-features = no-cursor
+cursor-invert-fg-bg = true

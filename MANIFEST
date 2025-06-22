@@ -1,3 +1,4 @@
 neovim|.config/nvim
+ghostty|.config/ghostty
 tmux/.tmux.conf|.tmux.conf
 vim/.vimrc|.vimrc
