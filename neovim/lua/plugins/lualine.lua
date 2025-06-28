@@ -1,16 +1,19 @@
 return {
     "nvim-lualine/lualine.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = { "echasnovski/mini.icons" },
     config = function()
+        require("mini.icons").setup()
+        require("mini.icons").mock_nvim_web_devicons()
         require("lualine").setup({
             options = {
                 component_separators = { left = "", right = ""},
                 section_separators = { left = "", right = ""},
             },
             sections = {
-                lualine_a = {"mode"},
+                lualine_a = { "mode" },
                 lualine_b = {
                     { "branch", icon = "" },
+                    "branch",
                     "diff",
                     "diagnostics",
                 },
