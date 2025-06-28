@@ -1,5 +1,7 @@
 font-family = MesloLGS Nerd Font Mono
 font-size = 16
-theme = iTerm2 Tango Dark
+theme = tokyonight
 shell-integration-features = no-cursor
 cursor-invert-fg-bg = true
+macos-option-as-alt = true
+macos-icon = xray
