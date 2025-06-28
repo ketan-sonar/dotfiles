@@ -13,7 +13,6 @@ return {
                 lualine_a = { "mode" },
                 lualine_b = {
                     { "branch", icon = "" },
-                    "branch",
                     "diff",
                     "diagnostics",
                 },
