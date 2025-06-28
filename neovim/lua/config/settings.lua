@@ -1,7 +1,8 @@
 vim.opt.termguicolors = true
 vim.g.have_nerd_font = true
 
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
+vim.opt.cursorline = true
 
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4

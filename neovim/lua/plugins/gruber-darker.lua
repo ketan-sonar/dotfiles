@@ -1,5 +1,6 @@
 return {
     "blazkowolf/gruber-darker.nvim",
+    enabled = false,
     config = function()
         require("gruber-darker").setup({
             italic = {
