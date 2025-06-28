@@ -1,4 +1,5 @@
-neovim|.config/nvim
 ghostty|.config/ghostty
+homebrew|.config/homebrew
+neovim|.config/nvim
 tmux/.tmux.conf|.tmux.conf
 vim/.vimrc|.vimrc
