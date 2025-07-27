@@ -95,3 +95,10 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.highlight.on_yank()
 	end,
 })
+
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "cpp",
+    callback = function()
+        vim.opt_local.makeprg = "g++-15 -std=c++17 -Wall -Werror -O2 -o %< %"
+    end,
+})
