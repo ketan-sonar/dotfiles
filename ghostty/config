@@ -1,6 +1,12 @@
-font-family = JetBrainsMono Nerd Font Mono
-font-size = 16
-theme = tokyonight
+font-family = FiraCode Nerd Font Mono
+font-style = Regular
+font-style-bold = Semibold
+font-style-italic = Regular
+font-size = 14
+font-feature = -calt, -liga, -dlig
+
+theme = Builtin Tango Dark
+
 shell-integration-features = no-cursor
 cursor-invert-fg-bg = true
 macos-option-as-alt = true
