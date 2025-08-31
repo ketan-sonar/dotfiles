@@ -12,7 +12,7 @@ symlink() {
 
     if [ -L "$destination" ]; then
         echo "[WARNING] symlink already exists at $destination. Skipping this one."
-        continue
+        return
     fi
 
     if [ -e "$destination" ]; then
