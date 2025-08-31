@@ -10,7 +10,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.wrap = false
-vim.opt.guicursor = ""
+-- vim.opt.guicursor = ""
+-- vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 
@@ -92,27 +93,81 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.keymap.set("n", "<leader>s", ":update<CR>:source<CR>")
+vim.keymap.set("n", "<leader>o", ":update<CR>:source<CR>")
 vim.keymap.set("n", "<leader>w", ":write<CR>")
 vim.keymap.set("n", "<leader>q", ":quit<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
 vim.pack.add({
     "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/folke/tokyonight.nvim",
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/mason-org/mason-lspconfig.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-flutter/flutter-tools.nvim",
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/vague2k/vague.nvim",
 })
 
-vim.cmd.colorscheme("tokyonight-night")
--- vim.cmd.highlight("StatusLine guibg=NONE")
+require("vague").setup({
+    transparent = true,
+    bold = false,
+})
 
-vim.lsp.enable({ "lua_ls", "gopls", "asm_lsp" })
+vim.cmd.colorscheme("vague")
+-- vim.cmd.highlight("StatusLine guibg=NONE")
+-- vim.cmd [[
+--     highlight Normal guibg=none
+--     highlight NormalFloat guibg=none
+--     highlight NonText guibg=none
+--     highlight SignColumn guibg=none
+--     highlight Normal ctermbg=none
+--     highlight NormalFloat ctermbg=none
+--     highlight NonText ctermbg=none
+--     highlight SignColumn ctermbg=none
+-- ]]
+
+require("mason").setup({})
+require("mason-lspconfig").setup({
+    ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "pyright" },
+})
+
+vim.lsp.config("lua_ls", {
+    settings = {
+        Lua = {
+            workspace = {
+                library = vim.api.nvim_get_runtime_file("", true)
+            }
+        }
+    }
+})
+
+require("flutter-tools").setup({
+    fvm = true,
+})
+
+require("nvim-treesitter.configs").setup({
+    ensure_installed = { "c", "lua", "markdown", "markdown_inline", "go", "rust", "python" },
+    sync_install = false,
+    auto_install = true,
+    modules = {},
+    ignore_install = {},
+    highlight = { enable = true },
+    indent = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            node_incremental = "v",
+            scope_incremental = "<C-s>",
+            node_decremental = "V",
+        },
+    },
+})
 
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function()
         vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
         vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-        vim.keymap.set("v", "v", function() vim.lsp.buf.selection_range(1) end)
-        vim.keymap.set("v", "V", function() vim.lsp.buf.selection_range(-1) end)
+        vim.keymap.set("n", "gd", vim.lsp.buf.definition)
     end,
 })
