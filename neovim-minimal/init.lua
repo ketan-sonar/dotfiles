@@ -128,8 +128,10 @@ vim.cmd.colorscheme("vague")
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "pyright" },
+    ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "pyright", "ts_ls" },
 })
+
+require("lspconfig").ts_ls.setup({})
 
 vim.lsp.config("lua_ls", {
     settings = {
