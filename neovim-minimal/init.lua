@@ -106,6 +106,7 @@ vim.pack.add({
     "https://github.com/nvim-flutter/flutter-tools.nvim",
     "https://github.com/nvim-treesitter/nvim-treesitter",
     "https://github.com/vague2k/vague.nvim",
+    "https://github.com/ibhagwan/fzf-lua",
 })
 
 require("vague").setup({
@@ -173,3 +174,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.keymap.set("n", "gd", vim.lsp.buf.definition)
     end,
 })
+
+vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>", { desc = "Find Files" });
+vim.keymap.set("n", "<leader>fg", ":FzfLua live_grep<CR>", { desc = "Live Grep" });
