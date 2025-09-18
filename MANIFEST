@@ -4,3 +4,5 @@ homebrew|.config/homebrew
 neovim-minimal|.config/nvim
 tmux/.tmux.conf|.tmux.conf
 vim/.vimrc|.vimrc
+readline/.inputrc|.inputrc
+starship/starship.toml|.config/starship.toml
