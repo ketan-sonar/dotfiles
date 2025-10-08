@@ -1,12 +1,12 @@
 set nocompatible
-
 set termguicolors
-syntax enable
+syntax on
 filetype plugin on
 
-colorscheme desert
-
-set background=dark
+colorscheme koehler
+" colorscheme retrobox
+" Make the background transparent
+" autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
 
 set mouse=a
 
@@ -36,6 +36,8 @@ set undofile
 
 set scrolloff=4
 set colorcolumn=80
+" Change the color of ColorColumn
+" autocmd ColorScheme * highlight ColorColumn ctermfg=102 ctermbg=234 guifg=#928374 guibg=#1c1c1c
 
 set splitbelow
 set splitright
@@ -53,7 +55,9 @@ inoremap {<CR> {<CR>}<ESC>O
 inoremap [<CR> [<CR>]<ESC>O
 inoremap (<CR> (<CR>)<ESC>O
 
-" inoremap " ""<ESC>i
-" inoremap ' ''<ESC>i
+inoremap " ""<ESC>i
+inoremap ' ''<ESC>i
 
 autocmd FileType solidity iabbrev uint uint256
+
+set rtp+=/opt/homebrew/opt/fzf
