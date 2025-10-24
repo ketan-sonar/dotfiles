@@ -1,63 +1,76 @@
-set nocompatible
-set termguicolors
 syntax on
-filetype plugin on
-
-colorscheme koehler
-" colorscheme retrobox
-" Make the background transparent
-" autocmd ColorScheme * highlight Normal guibg=NONE ctermbg=NONE
-
-set mouse=a
-
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set expandtab
-
-set autoindent
-set smartindent
+filetype plugin indent on
+runtime! ftplugin/man.vim
 
 set number
 set relativenumber
+set nowrap
+set colorcolumn=80
+set scrolloff=4
 
-set nohlsearch
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+
+set smartindent
 set incsearch
 set ignorecase
 set smartcase
-set noerrorbells
+set wildmenu
+set path+=**
+
+set splitbelow
+set splitright
+
+" use ':set list' command to use the following feature
+set listchars=tab:»\ ,space:·,nbsp:␣
 
 set hidden
-set nowrap
 set noswapfile
 set nobackup
 set undodir=~/.vim/undodir
 set undofile
 
-set scrolloff=4
-set colorcolumn=80
-" Change the color of ColorColumn
-" autocmd ColorScheme * highlight ColorColumn ctermfg=102 ctermbg=234 guifg=#928374 guibg=#1c1c1c
+call plug#begin()
 
-set splitbelow
-set splitright
+Plug 'catppuccin/vim', { 'as': 'catppuccin' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'sheerun/vim-polyglot'
+Plug 'andrewradev/sideways.vim'
 
-runtime! ftplugin/man.vim
+call plug#end()
 
-set path+=**
-set wildmenu
-
-set rtp^="/Users/ketan/.opam/default/share/ocp-indent/vim"
-
-set backspace=indent,eol,start
-
-inoremap {<CR> {<CR>}<ESC>O
-inoremap [<CR> [<CR>]<ESC>O
-inoremap (<CR> (<CR>)<ESC>O
-
-inoremap " ""<ESC>i
-inoremap ' ''<ESC>i
-
-autocmd FileType solidity iabbrev uint uint256
+set termguicolors
+colorscheme koehler
 
 set rtp+=/opt/homebrew/opt/fzf
+set rtp+=/opt/homebrew/opt/rg
+
+let mapleader = ' '
+
+nnoremap <leader>w :update<CR>
+nnoremap <leader>o :update<CR>:source<CR>
+nnoremap <leader>e :Ex<CR>
+
+nnoremap <leader>sf :Files<CR>
+nnoremap <leader>sg :Rg<CR>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+let g:easy_align_delimiters = get(g:, 'easy_align_delimiters', {})
+let g:easy_align_delimiters['\'] = {
+\ 'pattern': '\\',
+\ 'left_margin': 1,
+\ 'right_margin': 0,
+\ 'stick_to_left': 0
+\ }
+
+nnoremap <leader>h :SidewaysLeft<CR>
+nnoremap <leader>l :SidewaysRight<CR>
