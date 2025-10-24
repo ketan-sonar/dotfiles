@@ -1,8 +1,9 @@
 ghostty|.config/ghostty
-homebrew|.config/homebrew
+#wezterm|.config/wezterm
+#homebrew|.config/homebrew
 #neovim|.config/nvim
 neovim-minimal|.config/nvim
-tmux/.tmux.conf|.tmux.conf
+tmux|.config/tmux
 vim/.vimrc|.vimrc
 readline/.inputrc|.inputrc
-starship/starship.toml|.config/starship.toml
+#starship/starship.toml|.config/starship.toml
