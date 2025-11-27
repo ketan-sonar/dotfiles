@@ -40,11 +40,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'sheerun/vim-polyglot'
 Plug 'andrewradev/sideways.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
 set termguicolors
 colorscheme koehler
+highlight Normal guibg=#101010
+highlight ColorColumn guibg=black
 
 set rtp+=/opt/homebrew/opt/fzf
 set rtp+=/opt/homebrew/opt/rg
