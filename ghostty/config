@@ -1,13 +1,9 @@
-font-family = FiraCode Nerd Font Mono
-font-style = Regular
-font-style-bold = Semibold
-font-style-italic = Regular
-font-size = 14
+font-family = IosevkaTerm Nerd Font Mono
+font-size = 20
 font-feature = -calt, -liga, -dlig
 
-theme = Builtin Tango Dark
+theme = iTerm2 Tango Dark
 
 shell-integration-features = no-cursor
-cursor-invert-fg-bg = true
 macos-option-as-alt = true
 macos-icon = xray
