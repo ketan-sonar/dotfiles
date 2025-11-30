@@ -4,7 +4,10 @@
 (column-number-mode)
 (electric-pair-mode)
 
-(set-face-attribute 'default nil :font "IosevkaTerm Nerd Font Mono-20")
+(setq-default fill-column 80)
+(add-hook 'prog-mode-hook (lambda () (display-fill-column-indicator-mode 1)))
+
+(set-face-attribute 'default nil :font "UbuntuMono Nerd Font Mono-17")
 (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 (setq ido-enable-flex-matching t)
@@ -17,6 +20,11 @@
 (setq evil-insert-state-cursor '((bar . 0) "#ffdd33"))
 
 (add-to-list 'load-path "~/.emacs.d/local/")
+
+(let ((backup-dir "~/.emacs.d/backups/"))
+  (when (not (file-directory-p backup-dir))
+    (make-directory backup-dir t)))
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups/")))
 
 (require 'simpc-mode)
 (add-to-list 'auto-mode-alist '("\\.[hc]\\(pp\\)?\\'" . simpc-mode))
