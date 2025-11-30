@@ -11,7 +11,6 @@ vim.opt.smartcase = true
 
 vim.opt.wrap = false
 -- vim.opt.guicursor = ""
--- vim.opt.cursorline = true
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 
@@ -39,9 +38,9 @@ vim.opt.path:append("**")
 vim.opt.wildignore:append("*/node_modules/*")
 vim.opt.wildignore:append("*/target/*")
 
-vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<ESC>O", { noremap = true })
-vim.api.nvim_set_keymap("i", "[<CR>", "[<CR>]<ESC>O", { noremap = true })
-vim.api.nvim_set_keymap("i", "(<CR>", "(<CR>)<ESC>O", { noremap = true })
+-- vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<ESC>O", { noremap = true })
+-- vim.api.nvim_set_keymap("i", "[<CR>", "[<CR>]<ESC>O", { noremap = true })
+-- vim.api.nvim_set_keymap("i", "(<CR>", "(<CR>)<ESC>O", { noremap = true })
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "solidity",
@@ -89,50 +88,82 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "cpp",
     callback = function()
-        vim.opt_local.makeprg = "g++-15 -std=c++17 -Wall -Werror -O2 -o %< %"
+        vim.opt_local.makeprg = "g++ -std=c++17 -Wall -Werror -O2 -o %< %"
     end,
 })
 
 vim.keymap.set("n", "<leader>o", ":update<CR>:source<CR>")
-vim.keymap.set("n", "<leader>w", ":write<CR>")
+vim.keymap.set("n", "<leader>w", ":update<CR>")
 vim.keymap.set("n", "<leader>q", ":quit<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
-vim.pack.add({
-    "https://github.com/neovim/nvim-lspconfig",
-    "https://github.com/mason-org/mason.nvim",
-    "https://github.com/mason-org/mason-lspconfig.nvim",
-    "https://github.com/nvim-lua/plenary.nvim",
-    "https://github.com/nvim-flutter/flutter-tools.nvim",
-    "https://github.com/nvim-treesitter/nvim-treesitter",
-    "https://github.com/vague2k/vague.nvim",
-    "https://github.com/ibhagwan/fzf-lua",
-})
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
 
-require("vague").setup({
-    transparent = true,
-    bold = false,
+require("lazy").setup({
+    "neovim/nvim-lspconfig",
+    "mason-org/mason.nvim",
+    "mason-org/mason-lspconfig.nvim",
+    "nvim-lua/plenary.nvim",
+    "nvim-flutter/flutter-tools.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    "ibhagwan/fzf-lua",
+    {
+        "windwp/nvim-autopairs",
+        event = "InsertEnter",
+        config = true
+    },
+    {
+        "vague-theme/vague.nvim",
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("vague").setup({
+                italic = false,
+            })
+            vim.cmd("colorscheme vague")
+        end
+    },
+    {
+        "christoomey/vim-tmux-navigator",
+        cmd = {
+            "TmuxNavigateLeft",
+            "TmuxNavigateDown",
+            "TmuxNavigateUp",
+            "TmuxNavigateRight",
+            "TmuxNavigatePrevious",
+            "TmuxNavigatorProcessList",
+        },
+        keys = {
+            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
+            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
+            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
+            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
+            { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
+        },
+    }
 })
-
-vim.cmd.colorscheme("vague")
--- vim.cmd.highlight("StatusLine guibg=NONE")
--- vim.cmd [[
---     highlight Normal guibg=none
---     highlight NormalFloat guibg=none
---     highlight NonText guibg=none
---     highlight SignColumn guibg=none
---     highlight Normal ctermbg=none
---     highlight NormalFloat ctermbg=none
---     highlight NonText ctermbg=none
---     highlight SignColumn ctermbg=none
--- ]]
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
     ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "pyright", "ts_ls" },
 })
 
-require("lspconfig").ts_ls.setup({})
+vim.lsp.config("ts_ls", {});
 
 vim.lsp.config("lua_ls", {
     settings = {
@@ -144,9 +175,7 @@ vim.lsp.config("lua_ls", {
     }
 })
 
-require("flutter-tools").setup({
-    fvm = true,
-})
+require("flutter-tools").setup({ fvm = true })
 
 require("nvim-treesitter.configs").setup({
     ensure_installed = { "c", "lua", "markdown", "markdown_inline", "go", "rust", "python" },
@@ -175,5 +204,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.keymap.set("n", "<leader>ff", ":FzfLua files<CR>", { desc = "Find Files" });
-vim.keymap.set("n", "<leader>fg", ":FzfLua live_grep<CR>", { desc = "Live Grep" });
+vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>", { desc = "Find Files" });
+vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>", { desc = "Live Grep" });
