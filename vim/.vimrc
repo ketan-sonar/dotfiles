@@ -32,6 +32,8 @@ set nobackup
 set undodir=~/.vim/undodir
 set undofile
 
+set iskeyword-=_
+
 call plug#begin()
 
 Plug 'catppuccin/vim', { 'as': 'catppuccin' }
