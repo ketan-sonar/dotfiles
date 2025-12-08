@@ -2,6 +2,8 @@ vim.g.mapleader = " "
 
 vim.opt.termguicolors = true
 
+vim.opt.guicursor = ""
+
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -10,7 +12,6 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 vim.opt.wrap = false
--- vim.opt.guicursor = ""
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
 
@@ -37,10 +38,7 @@ vim.opt.listchars = { tab = "» ", space = "·", nbsp = "␣" }
 vim.opt.path:append("**")
 vim.opt.wildignore:append("*/node_modules/*")
 vim.opt.wildignore:append("*/target/*")
-
--- vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<ESC>O", { noremap = true })
--- vim.api.nvim_set_keymap("i", "[<CR>", "[<CR>]<ESC>O", { noremap = true })
--- vim.api.nvim_set_keymap("i", "(<CR>", "(<CR>)<ESC>O", { noremap = true })
+vim.opt.iskeyword:remove("_")
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "solidity",
@@ -68,10 +66,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
-vim.keymap.set("n", "<leader>h", "<C-w><C-h>", { desc = "Move focus to the left window" })
-vim.keymap.set("n", "<leader>l", "<C-w><C-l>", { desc = "Move focus to the right window" })
-vim.keymap.set("n", "<leader>j", "<C-w><C-j>", { desc = "Move focus to the lower window" })
-vim.keymap.set("n", "<leader>k", "<C-w><C-k>", { desc = "Move focus to the upper window" })
+vim.keymap.set("n", "<leader>h", "<C-w><C-h>")
+vim.keymap.set("n", "<leader>l", "<C-w><C-l>")
+vim.keymap.set("n", "<leader>j", "<C-w><C-j>")
+vim.keymap.set("n", "<leader>k", "<C-w><C-k>")
 
 -- quick fix list
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<cr>", { desc = "cnext" })
@@ -79,16 +77,12 @@ vim.keymap.set("n", "<C-k>", "<cmd>cprev<cr>", { desc = "cprev" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
-    group = vim.api.nvim_create_augroup("kickstart-highlight-yank", { clear = true }),
+    group = vim.api.nvim_create_augroup(
+        "kickstart-highlight-yank",
+        { clear = true }
+    ),
     callback = function()
         vim.highlight.on_yank()
-    end,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "cpp",
-    callback = function()
-        vim.opt_local.makeprg = "g++ -std=c++17 -Wall -Werror -O2 -o %< %"
     end,
 })
 
@@ -97,73 +91,32 @@ vim.keymap.set("n", "<leader>w", ":update<CR>")
 vim.keymap.set("n", "<leader>q", ":quit<CR>")
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
--- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
-  if vim.v.shell_error ~= 0 then
-    vim.api.nvim_echo({
-      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-      { out, "WarningMsg" },
-      { "\nPress any key to exit..." },
-    }, true, {})
-    vim.fn.getchar()
-    os.exit(1)
-  end
-end
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup({
-    "neovim/nvim-lspconfig",
-    "mason-org/mason.nvim",
-    "mason-org/mason-lspconfig.nvim",
-    "nvim-lua/plenary.nvim",
-    "nvim-flutter/flutter-tools.nvim",
-    "nvim-treesitter/nvim-treesitter",
-    "ibhagwan/fzf-lua",
-    {
-        "windwp/nvim-autopairs",
-        event = "InsertEnter",
-        config = true
-    },
-    {
-        "vague-theme/vague.nvim",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("vague").setup({
-                italic = false,
-            })
-            vim.cmd("colorscheme vague")
-        end
-    },
-    {
-        "christoomey/vim-tmux-navigator",
-        cmd = {
-            "TmuxNavigateLeft",
-            "TmuxNavigateDown",
-            "TmuxNavigateUp",
-            "TmuxNavigateRight",
-            "TmuxNavigatePrevious",
-            "TmuxNavigatorProcessList",
-        },
-        keys = {
-            { "<c-h>", "<cmd><C-U>TmuxNavigateLeft<cr>" },
-            { "<c-j>", "<cmd><C-U>TmuxNavigateDown<cr>" },
-            { "<c-k>", "<cmd><C-U>TmuxNavigateUp<cr>" },
-            { "<c-l>", "<cmd><C-U>TmuxNavigateRight<cr>" },
-            { "<c-\\>", "<cmd><C-U>TmuxNavigatePrevious<cr>" },
-        },
-    }
+vim.pack.add({
+    "https://github.com/neovim/nvim-lspconfig",
+    "https://github.com/mason-org/mason.nvim",
+    "https://github.com/mason-org/mason-lspconfig.nvim",
+    "https://github.com/nvim-lua/plenary.nvim",
+    "https://github.com/nvim-flutter/flutter-tools.nvim",
+    "https://github.com/nvim-treesitter/nvim-treesitter",
+    "https://github.com/ibhagwan/fzf-lua",
+    "https://github.com/windwp/nvim-autopairs",
+    "https://github.com/christoomey/vim-tmux-navigator",
+    "https://github.com/catppuccin/nvim",
 })
+
+require("catppuccin").setup({
+    flavour = "mocha",
+    no_italic = true,
+    no_bold = true,
+})
+vim.cmd.colorscheme("catppuccin")
+vim.cmd.highlight("Normal guibg=#101019")
 
 require("mason").setup({})
 require("mason-lspconfig").setup({
-    ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "pyright", "ts_ls" },
+    ensure_installed = { "lua_ls", "gopls", "rust_analyzer", "pyright",
+                         "clangd" },
 })
-
-vim.lsp.config("ts_ls", {});
 
 vim.lsp.config("lua_ls", {
     settings = {
@@ -178,7 +131,8 @@ vim.lsp.config("lua_ls", {
 require("flutter-tools").setup({ fvm = true })
 
 require("nvim-treesitter.configs").setup({
-    ensure_installed = { "c", "lua", "markdown", "markdown_inline", "go", "rust", "python" },
+    ensure_installed = { "c", "lua", "markdown", "markdown_inline", "go",
+                         "rust", "python" },
     sync_install = false,
     auto_install = true,
     modules = {},
@@ -195,6 +149,12 @@ require("nvim-treesitter.configs").setup({
     },
 })
 
+vim.keymap.set("n", "<C-h>", ":TmuxNavigateLeft<CR>")
+vim.keymap.set("n", "<C-j>", ":TmuxNavigateDown<CR>")
+vim.keymap.set("n", "<C-k>", ":TmuxNavigateUp<CR>")
+vim.keymap.set("n", "<C-l>", ":TmuxNavigateRight<CR>")
+vim.keymap.set("n", "<C-\\>", ":TmuxNavigatePrevious<CR>")
+
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function()
         vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
@@ -204,5 +164,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
-vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>", { desc = "Find Files" });
-vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>", { desc = "Live Grep" });
+vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>",
+               { desc = "Find Files" })
+vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>",
+               { desc = "Live Grep" })
