@@ -1,5 +1,5 @@
-ghostty|.config/ghostty
-#wezterm|.config/wezterm
+#ghostty|.config/ghostty
+wezterm|.config/wezterm
 #homebrew|.config/homebrew
 #neovim|.config/nvim
 neovim-minimal|.config/nvim
@@ -7,5 +7,6 @@ tmux|.config/tmux
 vim/.vimrc|.vimrc
 readline/.inputrc|.inputrc
 emacs/.emacs|.emacs
-emacs/.emacs.d/local|.emacs.d/local
+#emacs/.emacs.d/local|.emacs.d/local
 #starship/starship.toml|.config/starship.toml
+zsh/.zshrc|.zshrc
