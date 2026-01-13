@@ -163,9 +163,9 @@ require("lazy").setup({
 								words = { "vim%.uv" },
 							},
 							{
-                                path = "wezterm-types",
-                                mods = { "wezterm" }
-                            },
+								path = "wezterm-types",
+								mods = { "wezterm" },
+							},
 						},
 					},
 				},
@@ -249,9 +249,21 @@ require("lazy").setup({
 				vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>")
 			end,
 		},
+		{
+			"stevearc/oil.nvim",
+			---@module 'oil'
+			---@type oil.SetupOpts
+			opts = {},
+			dependencies = { "nvim-tree/nvim-web-devicons" },
+			lazy = false,
+            config = function(_, opts)
+				local oil = require("oil")
+				oil.setup(opts)
+				vim.keymap.set("n", "-", ":Oil<CR>")
+            end
+		},
 	},
 	install = { colorscheme = { "habamax" } },
-	-- checker = { enabled = true },
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
