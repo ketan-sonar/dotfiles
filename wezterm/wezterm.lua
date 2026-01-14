@@ -7,9 +7,10 @@ config = {
     font = wezterm.font({
         family = "IosevkaTerm Nerd Font Mono",
     }),
-    -- harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
+    -- harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
     font_size = 18,
-    color_scheme = "iTerm2 Tango Dark",
+    color_scheme = "catppuccin-mocha",
+    colors = { background = "#101019" },
     enable_tab_bar = false,
     window_decorations = "RESIZE",
     initial_cols = 100,
