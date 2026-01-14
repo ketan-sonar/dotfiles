@@ -5,14 +5,14 @@ local config = wezterm.config_builder()
 
 config = {
     font = wezterm.font({
-        family = "CaskaydiaCove Nerd Font Mono",
+        family = "IosevkaTerm Nerd Font Mono",
     }),
     -- harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' },
-    font_size = 16,
+    font_size = 18,
     color_scheme = "iTerm2 Tango Dark",
     enable_tab_bar = false,
     window_decorations = "RESIZE",
-    initial_cols = 80,
+    initial_cols = 100,
     initial_rows = 25,
     cursor_thickness = 0,
 }
