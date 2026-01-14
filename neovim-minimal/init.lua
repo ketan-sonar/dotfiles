@@ -282,3 +282,6 @@ vim.keymap.set("n", "<leader>k", ":cprev<CR>")
 vim.keymap.set("n", "<leader>o", ":update<CR>:source<CR>")
 vim.keymap.set("n", "<leader>w", ":update<CR>")
 vim.keymap.set("n", "<leader>q", ":quit<CR>")
+
+vim.keymap.set("v", "<C-y>", "\"+y")
+vim.keymap.set("v", "<C-p>", "\"+P")
