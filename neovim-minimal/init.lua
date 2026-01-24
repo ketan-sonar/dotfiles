@@ -136,7 +136,15 @@ require("lazy").setup({
 				flavour = "mocha",
 				no_italic = true,
 				no_bold = true,
-				color_overrides = { mocha = { base = "#101019" } },
+				color_overrides = { mocha = { base = "#0a0a10" } },
+                highlight_overrides = {
+                    mocha = function (_)
+                        return {
+                            ColorColumn = { bg = "#101019" },
+                            CursorLine = { bg = "#101019" },
+                        }
+                    end,
+                },
 			},
 			config = function(_, opts)
 				require("catppuccin").setup(opts)

@@ -5,15 +5,16 @@ local config = wezterm.config_builder()
 
 config = {
     font = wezterm.font({
-        family = "IosevkaTerm Nerd Font Mono",
+        family = "CaskaydiaCove Nerd Font Mono",
     }),
     -- harfbuzz_features = { "calt=0", "clig=0", "liga=0" },
-    font_size = 18,
+    font_size = 16,
     color_scheme = "catppuccin-mocha",
-    colors = { background = "#101019" },
+    colors = { background = "#0a0a10" },
+    force_reverse_video_cursor = true,
     enable_tab_bar = false,
     window_decorations = "RESIZE",
-    initial_cols = 100,
+    initial_cols = 80,
     initial_rows = 25,
     cursor_thickness = 0,
 }
