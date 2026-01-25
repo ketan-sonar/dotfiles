@@ -137,14 +137,14 @@ require("lazy").setup({
 				no_italic = true,
 				no_bold = true,
 				color_overrides = { mocha = { base = "#0a0a10" } },
-                highlight_overrides = {
-                    mocha = function (_)
-                        return {
-                            ColorColumn = { bg = "#101019" },
-                            CursorLine = { bg = "#101019" },
-                        }
-                    end,
-                },
+				highlight_overrides = {
+					mocha = function(_)
+						return {
+							ColorColumn = { bg = "#101019" },
+							CursorLine = { bg = "#101019" },
+						}
+					end,
+				},
 			},
 			config = function(_, opts)
 				require("catppuccin").setup(opts)
@@ -187,6 +187,13 @@ require("lazy").setup({
 				{ "mason-org/mason.nvim", opts = {} },
 				"neovim/nvim-lspconfig",
 			},
+		},
+		{
+			"linux-cultist/venv-selector.nvim",
+			dependencies = { "neovim/nvim-lspconfig", "ibhagwan/fzf-lua" },
+			ft = "python",
+			keys = { { "<leader>v", ":VenvSelect<CR>" } },
+			opts = {},
 		},
 		{
 			"rachartier/tiny-inline-diagnostic.nvim",
@@ -264,11 +271,11 @@ require("lazy").setup({
 			opts = {},
 			dependencies = { "nvim-tree/nvim-web-devicons" },
 			lazy = false,
-            config = function(_, opts)
+			config = function(_, opts)
 				local oil = require("oil")
 				oil.setup(opts)
 				vim.keymap.set("n", "-", ":Oil<CR>")
-            end
+			end,
 		},
 	},
 	install = { colorscheme = { "habamax" } },
@@ -291,6 +298,6 @@ vim.keymap.set("n", "<leader>o", ":update<CR>:source<CR>")
 vim.keymap.set("n", "<leader>w", ":update<CR>")
 vim.keymap.set("n", "<leader>q", ":quit<CR>")
 
-vim.keymap.set("v", "<C-y>", "\"+y")
-vim.keymap.set("n", "<C-p>", "\"+p")
-vim.keymap.set("v", "<C-p>", "\"+P")
+vim.keymap.set("v", "<C-y>", '"+y')
+vim.keymap.set("n", "<C-p>", '"+p')
+vim.keymap.set("v", "<C-p>", '"+P')
