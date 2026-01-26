@@ -140,8 +140,8 @@ require("lazy").setup({
 				highlight_overrides = {
 					mocha = function(_)
 						return {
-							ColorColumn = { bg = "#101019" },
-							CursorLine = { bg = "#101019" },
+							ColorColumn = { bg = "#181825" },
+							CursorLine = { bg = "#181825" },
 						}
 					end,
 				},
