@@ -264,19 +264,33 @@ require("lazy").setup({
 				vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>")
 			end,
 		},
-		{
-			"stevearc/oil.nvim",
-			---@module 'oil'
-			---@type oil.SetupOpts
-			opts = {},
-			dependencies = { "nvim-tree/nvim-web-devicons" },
-			lazy = false,
-			config = function(_, opts)
-				local oil = require("oil")
-				oil.setup(opts)
-				vim.keymap.set("n", "-", ":Oil<CR>")
-			end,
-		},
+        {
+            "nvim-tree/nvim-tree.lua",
+            version = "*",
+            lazy = false,
+            dependencies = { "nvim-tree/nvim-web-devicons" },
+            opt = { view = { side = "right" } },
+            keys = { { "<leader>f", "<cmd>NvimTreeToggle<cr>" } },
+            config = function (_, opts)
+                require("nvim-tree").setup(opts)
+            end
+        },
+		-- {
+		-- 	"nvim-neo-tree/neo-tree.nvim",
+		-- 	branch = "v3.x",
+		-- 	dependencies = {
+		-- 		"nvim-lua/plenary.nvim",
+		-- 		"MunifTanjim/nui.nvim",
+		-- 		"nvim-tree/nvim-web-devicons",
+		-- 	},
+		-- 	lazy = false,
+		-- 	---@module "neo-tree"
+		-- 	---@type neotree.Config
+		--           opt = { window = { position = "right" } },
+		--           keys = {
+		--               { "<leader>f", "<CMD>Neotree right<CR>" },
+		--           },
+		-- },
 	},
 	install = { colorscheme = { "habamax" } },
 })
@@ -301,3 +315,11 @@ vim.keymap.set("n", "<leader>q", ":quit<CR>")
 vim.keymap.set("v", "<C-y>", '"+y')
 vim.keymap.set("n", "<C-p>", '"+p')
 vim.keymap.set("v", "<C-p>", '"+P')
+
+vim.api.nvim_create_autocmd("VimLeavePre", {
+	desc = "Force cursor to beam on exit",
+	group = vim.api.nvim_create_augroup("restore_cursor", { clear = true }),
+	callback = function()
+		vim.opt.guicursor = "a:ver25"
+	end,
+})
