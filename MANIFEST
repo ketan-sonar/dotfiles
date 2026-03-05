@@ -6,8 +6,8 @@ kitty|.config/kitty
 neovim-minimal|.config/nvim
 tmux|.config/tmux
 vim/.vimrc|.vimrc
-readline/.inputrc|.inputrc
-emacs/.emacs|.emacs
+#readline/.inputrc|.inputrc
+#emacs/.emacs|.emacs
 #emacs/.emacs.d/local|.emacs.d/local
 #starship/starship.toml|.config/starship.toml
-zsh/.zshrc|.zshrc
+zsh/.zshrc|.zshrc.custom
