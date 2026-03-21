@@ -18,6 +18,7 @@ alias lg="lazygit"
 
 # exports
 export TERM="xterm-256color"
+export EDITOR="nvim"
 export PATH="/opt/homebrew/bin:$PATH"
 export GOPATH="$HOME/Developer/go"
 export GOBIN="$GOPATH/bin"
