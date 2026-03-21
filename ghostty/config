@@ -1,13 +1,11 @@
 cursor-style-blink = false
 custom-shader = shaders/cursor_warp.glsl
 font-family = JetBrainsMono Nerd Font Mono
-font-size = 20
+font-size = 16
 macos-icon = xray
 macos-option-as-alt = true
 macos-titlebar-style = hidden
 shell-integration-features = no-cursor
-theme = Catppuccin Mocha
-background = #0a0a10
-foreground = #f5f5ef
+theme = TokyoNight Night
 window-padding-x = 10
 window-padding-y = 10
