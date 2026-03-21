@@ -40,9 +40,11 @@ vim.pack.add({
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
+    { src = "https://github.com/nvim-tree/nvim-tree.lua" },
 })
 
 vim.cmd.colorscheme("tokyonight-night")
+vim.cmd.highlight("Normal guibg=NONE ctermbg=NONE")
 
 require("nvim-treesitter.configs").setup({
     auto_install = true,
@@ -65,6 +67,10 @@ require("nvim-treesitter.configs").setup({
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("lazydev").setup()
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition)
 
 require("blink.cmp").setup({
     fuzzy = { implementation = "prefer_rust" },
@@ -72,12 +78,20 @@ require("blink.cmp").setup({
 })
 
 require("tiny-inline-diagnostic").setup()
+
 require("venv-selector").setup()
+vim.keymap.set("n", "<leader>v", ":VenvSelect<CR>")
+
 require("gitsigns").setup()
+
 require("mini.icons").setup()
+require("mini.icons").mock_nvim_web_devicons()
 require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.statusline").setup()
+
+require("nvim-tree").setup({ view = { width = 40, side = "right" } })
+vim.keymap.set("n", "<leader>f", ":NvimTreeToggle<CR>")
 
 vim.keymap.set("n", "<leader>m", ":make<CR>")
 vim.keymap.set("n", "<leader>j", ":cnext<CR>")
@@ -91,17 +105,10 @@ vim.keymap.set("v", "<C-y>", '"+y')
 vim.keymap.set("n", "<C-p>", '"+p')
 vim.keymap.set("v", "<C-p>", '"+P')
 
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-
 vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>")
 vim.keymap.set("n", "<leader>sb", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>sm", ":FzfLua manpages<CR>")
-
-vim.keymap.set("n", "<leader>v", ":VenvSelect<CR>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
