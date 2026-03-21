@@ -35,6 +35,7 @@ vim.pack.add({
     { src = "https://github.com/rafamadriz/friendly-snippets" },
     { src = "https://github.com/saghen/blink.cmp",                      version = vim.version.range("1.*") },
     { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
+    { src = "https://github.com/linux-cultist/venv-selector.nvim" },
     { src = "https://github.com/lewis6991/gitsigns.nvim" },
     { src = "https://github.com/nvim-mini/mini.nvim" },
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
@@ -71,6 +72,7 @@ require("blink.cmp").setup({
 })
 
 require("tiny-inline-diagnostic").setup()
+require("venv-selector").setup()
 require("gitsigns").setup()
 require("mini.icons").setup()
 require("mini.pairs").setup()
@@ -98,6 +100,8 @@ vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>")
 vim.keymap.set("n", "<leader>sb", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>sm", ":FzfLua manpages<CR>")
+
+vim.keymap.set("n", "<leader>v", ":VenvSelect<CR>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
