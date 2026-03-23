@@ -1,6 +1,6 @@
 cursor-style-blink = false
 custom-shader = shaders/cursor_warp.glsl
-font-family = JetBrainsMono Nerd Font Mono
+font-family = Mononoki Nerd Font Mono
 font-size = 16
 macos-icon = xray
 macos-option-as-alt = true
