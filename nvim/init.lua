@@ -41,6 +41,11 @@ vim.pack.add({
     { src = "https://github.com/christoomey/vim-tmux-navigator" },
     { src = "https://github.com/ibhagwan/fzf-lua" },
     { src = "https://github.com/nvim-tree/nvim-tree.lua" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/sindrets/diffview.nvim" },
+    { src = "https://github.com/m00qek/baleia.nvim" },
+    { src = "https://github.com/neogitorg/neogit" },
+    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
 })
 
 vim.cmd.colorscheme("tokyonight-night")
@@ -109,6 +114,8 @@ vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>")
 vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>")
 vim.keymap.set("n", "<leader>sb", ":FzfLua buffers<CR>")
 vim.keymap.set("n", "<leader>sm", ":FzfLua manpages<CR>")
+
+vim.keymap.set("n", "<leader>g", ":Neogit<CR>")
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
