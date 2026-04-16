@@ -26,7 +26,6 @@ vim.opt.wildignore:append("*/target/*")
 vim.opt.iskeyword:remove("_")
 
 vim.pack.add({
-    { src = "https://github.com/nvim-treesitter/nvim-treesitter",       version = "master" },
     { src = "https://github.com/folke/tokyonight.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
@@ -51,22 +50,14 @@ vim.pack.add({
 vim.cmd.colorscheme("tokyonight-night")
 vim.cmd.highlight("Normal guibg=NONE ctermbg=NONE")
 
-require("nvim-treesitter.configs").setup({
-    auto_install = true,
-    highlight = { enable = true },
-    incremental_selection = {
-        enable = true,
-        keymaps = {
-            node_incremental = "v",
-            scope_incremental = "<C-s>",
-            node_decremental = "V",
-        },
-    },
-    indent = { enable = true },
-    modules = {},
-    sync_install = false,
-    ensure_installed = {},
-    ignore_install = {},
+vim.api.nvim_create_autocmd("FileType", {
+    desc = "Automatically attach native Treesitter",
+    group = vim.api.nvim_create_augroup("treesitter-auto-attach", { clear = true }),
+    callback = function(args)
+        if vim.bo[args.buf].buftype == "" then
+            pcall(vim.treesitter.start, args.buf)
+        end
+    end,
 })
 
 require("mason").setup()
