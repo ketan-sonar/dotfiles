@@ -27,6 +27,7 @@ vim.opt.iskeyword:remove("_")
 
 vim.pack.add({
     { src = "https://github.com/folke/tokyonight.nvim" },
+    { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/mason-org/mason.nvim" },
     { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
@@ -59,6 +60,8 @@ vim.api.nvim_create_autocmd("FileType", {
         end
     end,
 })
+
+require("tree-sitter-manager").setup({ auto_install = true })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
