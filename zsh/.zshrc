@@ -1,5 +1,6 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 eval "$(fnm env --use-on-cd --shell zsh)"
+eval "$(starship init zsh)"
 
 # aliases
 alias ls="eza --group-directories-first"
@@ -15,6 +16,7 @@ alias gcc="gcc-15"
 alias g++="g++-15"
 alias get_idf="source ~/Developer/esp/esp-idf/export.sh"
 alias lg="lazygit"
+alias gst="git status"
 
 # exports
 export TERM="xterm-256color"
@@ -34,3 +36,7 @@ export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 fpath+=("$(brew --prefix)/share/zsh/site-functions")
 
 source <(fzf --zsh)
+
+bindkey -v
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
