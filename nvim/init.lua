@@ -25,47 +25,101 @@ vim.opt.wildignore:append("*/node_modules/*")
 vim.opt.wildignore:append("*/target/*")
 vim.opt.iskeyword:remove("_")
 
-vim.pack.add({
-    { src = "https://github.com/folke/tokyonight.nvim" },
-    { src = "https://github.com/romus204/tree-sitter-manager.nvim" },
-    { src = "https://github.com/neovim/nvim-lspconfig" },
-    { src = "https://github.com/mason-org/mason.nvim" },
-    { src = "https://github.com/mason-org/mason-lspconfig.nvim" },
-    { src = "https://github.com/folke/lazydev.nvim" },
-    { src = "https://github.com/rafamadriz/friendly-snippets" },
-    { src = "https://github.com/saghen/blink.cmp",                      version = vim.version.range("1.*") },
-    { src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
-    { src = "https://github.com/linux-cultist/venv-selector.nvim" },
-    { src = "https://github.com/lewis6991/gitsigns.nvim" },
-    { src = "https://github.com/nvim-mini/mini.nvim" },
-    { src = "https://github.com/christoomey/vim-tmux-navigator" },
-    { src = "https://github.com/ibhagwan/fzf-lua" },
-    { src = "https://github.com/nvim-tree/nvim-tree.lua" },
-    { src = "https://github.com/nvim-lua/plenary.nvim" },
-    { src = "https://github.com/sindrets/diffview.nvim" },
-    { src = "https://github.com/m00qek/baleia.nvim" },
-    { src = "https://github.com/neogitorg/neogit" },
-    { src = "https://github.com/MeanderingProgrammer/render-markdown.nvim" },
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
+end
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup({
+    { "folke/tokyonight.nvim" },
+    { "m00qek/baleia.nvim" },
+    { "rachartier/tiny-inline-diagnostic.nvim" },
+    { "nvim-mini/mini.nvim" },
+
+    {
+        "nvim-treesitter/nvim-treesitter",
+        branch = "master",
+        build = ":TSUpdate",
+    },
+
+    {
+        "neovim/nvim-lspconfig",
+        dependencies = {
+            "mason-org/mason.nvim",
+            "mason-org/mason-lspconfig.nvim",
+            "folke/lazydev.nvim",
+        },
+    },
+
+    {
+        "saghen/blink.cmp",
+        version = "v1.*",
+        dependencies = { "rafamadriz/friendly-snippets" },
+    },
+
+    { "lewis6991/gitsigns.nvim" },
+    {
+        "neogitorg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "ibhagwan/fzf-lua",
+        },
+    },
+
+    { "christoomey/vim-tmux-navigator" },
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = { "nvim-mini/mini.nvim" },
+    },
+
+    { "linux-cultist/venv-selector.nvim" },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            "nvim-mini/mini.nvim",
+        },
+    },
 })
 
 vim.cmd.colorscheme("tokyonight-night")
 vim.cmd.highlight("Normal guibg=NONE ctermbg=NONE")
 
-vim.api.nvim_create_autocmd("FileType", {
-    desc = "Automatically attach native Treesitter",
-    group = vim.api.nvim_create_augroup("treesitter-auto-attach", { clear = true }),
-    callback = function(args)
-        if vim.bo[args.buf].buftype == "" then
-            pcall(vim.treesitter.start, args.buf)
-        end
-    end,
+require("nvim-treesitter.configs").setup({
+    auto_install = true,
+    highlight = { enable = true },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            node_incremental = "v",
+            scope_incremental = "<C-s>",
+            node_decremental = "V",
+        },
+    },
+    indent = { enable = true },
+    modules = {},
+    sync_install = false,
+    ensure_installed = {},
+    ignore_install = {},
 })
-
-require("tree-sitter-manager").setup({ auto_install = true })
 
 require("mason").setup()
 require("mason-lspconfig").setup()
 require("lazydev").setup()
+
 vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
 vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
 vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
@@ -89,7 +143,9 @@ require("mini.pairs").setup()
 require("mini.surround").setup()
 require("mini.statusline").setup()
 
-require("nvim-tree").setup({ view = { width = 40, side = "right" } })
+require("nvim-tree").setup({
+    view = { width = 40, side = "right", adaptive_size = true },
+})
 vim.keymap.set("n", "<leader>f", ":NvimTreeToggle<CR>")
 
 vim.keymap.set("n", "<leader>m", ":make<CR>")
