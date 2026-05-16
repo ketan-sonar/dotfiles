@@ -58,6 +58,7 @@ set rtp+=/opt/homebrew/opt/rg
 let mapleader = ' '
 
 nnoremap <leader>w :update<CR>
+nnoremap <leader>q :quit<CR>
 nnoremap <leader>o :update<CR>:source<CR>
 nnoremap <leader>e :Ex<CR>
 
