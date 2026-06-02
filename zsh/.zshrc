@@ -40,3 +40,6 @@ source <(fzf --zsh)
 bindkey -v
 autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
+setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_FIND_NO_DUPS
