@@ -8,5 +8,4 @@
 #readline/.inputrc|.inputrc
 #emacs/.emacs|.emacs
 #emacs/.emacs.d/local|.emacs.d/local
-#starship/starship.toml|.config/starship.toml
-#zsh/.zshrc|.zshrc.custom
+#zsh|.config/zsh

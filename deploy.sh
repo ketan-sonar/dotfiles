@@ -24,7 +24,6 @@ symlink() {
     echo "[SUCCESS] $source -> $destination"
 }
 
-
 deploy() {
     while read -r line; do
         if [[ "$line" =~ ^#.* ]]; then

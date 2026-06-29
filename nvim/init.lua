@@ -9,8 +9,8 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.signcolumn = "yes"
 vim.opt.winborder = "rounded"
-vim.opt.colorcolumn = "80"
-vim.opt.cursorline = true
+-- vim.opt.colorcolumn = "80"
+-- vim.opt.cursorline = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.swapfile = false
@@ -28,8 +28,8 @@ vim.opt.iskeyword:remove("_")
 -- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-    local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-    local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+    local lazyrepo = "https://github.com/folke/lazy.nvim"
+    local out = vim.fn.system({ "git", "clone", "--depth=1", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
     if vim.v.shell_error ~= 0 then
         vim.api.nvim_echo({
             { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
@@ -69,11 +69,11 @@ require("lazy").setup({
                 options = {
                     globalstatus = true,
                     component_separators = "",
-                    section_separators = { left = "", right = "" },
+                    section_separators = { left = "", right = "" },
                 },
                 sections = {
                     lualine_a = {
-                        { "mode", separator = { left = "", right = "" }, right_padding = 2 },
+                        { "mode", separator = { left = "", right = "" }, right_padding = 2 },
                     },
                     lualine_b = {
                         { "branch", icon = "" },
@@ -83,7 +83,7 @@ require("lazy").setup({
                     lualine_x = { "filetype" },
                     lualine_y = { "progress" },
                     lualine_z = {
-                        { "location", separator = { left = "", right = "" }, left_padding = 2 },
+                        { "location", separator = { left = "", right = "" }, left_padding = 2 },
                     },
                 },
             })

@@ -1,12 +1,9 @@
-cursor-style-blink = false
-custom-shader = shaders/cursor_warp.glsl
-font-family = JetBrainsMono Nerd Font Mono
+font-family = Mononoki Nerd Font Mono
 font-size = 16
+theme = iTerm2 Tango Dark
 macos-icon = xray
 macos-option-as-alt = true
 macos-titlebar-style = hidden
-shell-integration-features = no-cursor
-theme = Catppuccin Mocha
-background = #0a0a0f
 window-padding-x = 10
 window-padding-y = 10
+custom-shader = shaders/cursor_warp.glsl
