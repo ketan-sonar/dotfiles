@@ -9,3 +9,4 @@
 #emacs/.emacs|.emacs
 #emacs/.emacs.d/local|.emacs.d/local
 #zsh|.config/zsh
+#starship/starship.toml|.config/starship.toml

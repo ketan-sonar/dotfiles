@@ -1,29 +1,54 @@
-vim.g.mapleader = " "
-
+-- UI
+vim.opt.termguicolors = true
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.signcolumn = "yes"
+vim.opt.winborder = "rounded"
+vim.opt.colorcolumn = "80"
+
+-- Editing
 vim.opt.wrap = false
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
-vim.opt.signcolumn = "yes"
-vim.opt.winborder = "rounded"
--- vim.opt.colorcolumn = "80"
--- vim.opt.cursorline = true
+vim.opt.iskeyword:remove("_")
+
+-- Search
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+
+-- Files
 vim.opt.swapfile = false
-vim.opt.undodir = os.getenv("HOME") .. "/.local/share/nvim/undodir"
+local undodir = vim.fn.stdpath("data") .. "/undodir"
+vim.fn.mkdir(undodir, "p")
+vim.opt.undodir = undodir
 vim.opt.undofile = true
+
+-- Windows / scrolling
 vim.opt.scrolloff = 4
 vim.opt.splitbelow = true
 vim.opt.splitright = true
-vim.opt.listchars = { tab = "» ", space = "·", nbsp = "␣" }
+
+-- Display whitespace with :set list
+vim.opt.listchars = {
+    tab = "» ",
+    space = "·",
+    nbsp = "␣",
+}
+
+-- File searching
 vim.opt.path:append("**")
-vim.opt.wildignore:append("*/node_modules/*")
-vim.opt.wildignore:append("*/target/*")
-vim.opt.iskeyword:remove("_")
+
+for _, pattern in ipairs({
+    "*/node_modules/*",
+    "*/target/*",
+    "*/.git/*",
+    "*/dist/*",
+    "*/build/*",
+}) do
+    vim.opt.wildignore:append(pattern)
+end
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -41,152 +66,151 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+
 require("lazy").setup({
-    {
-        "catppuccin/nvim",
-        name = "catppuccin",
-        lazy = false,
-        priority = 1000,
-        config = function()
-            require("catppuccin").setup({
-                transparent_background = true,
-                integrations = { nvimtree = true },
-            })
-            vim.cmd.colorscheme("catppuccin-mocha")
-        end,
-    },
-
-    { "m00qek/baleia.nvim" },
-    { "rachartier/tiny-inline-diagnostic.nvim" },
-    { "nvim-mini/mini.nvim" },
-
-    {
-        "nvim-lualine/lualine.nvim",
-        dependencies = { "nvim-mini/mini.nvim" },
-        config = function()
-            require("lualine").setup({
-                options = {
-                    globalstatus = true,
-                    component_separators = "",
-                    section_separators = { left = "", right = "" },
-                },
-                sections = {
-                    lualine_a = {
-                        { "mode", separator = { left = "", right = "" }, right_padding = 2 },
-                    },
-                    lualine_b = {
-                        { "branch", icon = "" },
-                        "diagnostics",
-                    },
-                    lualine_c = { "filename" },
-                    lualine_x = { "filetype" },
-                    lualine_y = { "progress" },
-                    lualine_z = {
-                        { "location", separator = { left = "", right = "" }, left_padding = 2 },
-                    },
-                },
-            })
-        end,
-    },
-
-    {
-        "nvim-treesitter/nvim-treesitter",
-        lazy = false,
-        build = ":TSUpdate"
-    },
-
-    {
-        "neovim/nvim-lspconfig",
-        dependencies = {
-            "mason-org/mason.nvim",
-            "mason-org/mason-lspconfig.nvim",
-            "folke/lazydev.nvim",
+    spec = {
+        {
+            "WTFox/jellybeans.nvim",
+            lazy = false,
+            priority = 1000,
+            opts = { flat_ui = false },
+            config = function(_, opts)
+                require("jellybeans").setup(opts)
+                vim.cmd.colorscheme("jellybeans")
+            end
         },
-    },
-
-    {
-        "saghen/blink.cmp",
-        version = "v1.*",
-        dependencies = { "rafamadriz/friendly-snippets" },
-    },
-
-    { "lewis6991/gitsigns.nvim" },
-    {
-        "neogitorg/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
-            "ibhagwan/fzf-lua",
+        {
+            "xiyaowong/transparent.nvim",
+            lazy = false,
+            priority = 1000,
+            opts = {},
+            config = function(_, opts)
+                require("transparent").setup(opts)
+                vim.cmd("TransparentEnable")
+            end
         },
-    },
-
-    { "christoomey/vim-tmux-navigator" },
-    {
-        "nvim-tree/nvim-tree.lua",
-        dependencies = { "nvim-mini/mini.nvim" },
-    },
-
-    { "linux-cultist/venv-selector.nvim" },
-    {
-        "MeanderingProgrammer/render-markdown.nvim",
-        dependencies = {
+        {
             "nvim-treesitter/nvim-treesitter",
-            "nvim-mini/mini.nvim",
+            build = ":TSUpdate",
         },
+        {
+            "mason-org/mason-lspconfig.nvim",
+            opts = {
+                ensure_installed = {
+                    "lua_ls", "rust_analyzer", "gopls", "clangd", "emmet_language_server", "pyright"
+                },
+            },
+            dependencies = {
+                { "mason-org/mason.nvim", opts = {} },
+                "neovim/nvim-lspconfig",
+            },
+        },
+        {
+            "folke/lazydev.nvim",
+            ft = "lua",
+            opts = {
+                library = {
+                    { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+                },
+            },
+        },
+        {
+            "saghen/blink.cmp",
+            version = "1.*",
+            dependencies = { "rafamadriz/friendly-snippets" },
+            opts = {
+                fuzzy = { implementation = "prefer_rust" },
+                keymap = { preset = "super-tab" },
+            },
+        },
+        {
+            "rachartier/tiny-inline-diagnostic.nvim",
+            event = "VeryLazy",
+            priority = 1000,
+            opts = {
+                preset = "ghost",
+                transparent_cursorline = true,
+            },
+            config = function(_, opts)
+                require("tiny-inline-diagnostic").setup(opts)
+                vim.diagnostic.config({ virtual_text = false })
+                vim.diagnostic.open_float = require("tiny-inline-diagnostic.override").open_float
+            end,
+        },
+        {
+            "nvim-mini/mini.nvim",
+            version = false,
+            config = function()
+                require("mini.icons").setup()
+                require("mini.icons").mock_nvim_web_devicons()
+                require("mini.pairs").setup()
+                require("mini.surround").setup()
+            end,
+        },
+        {
+            "nvim-lualine/lualine.nvim",
+            opts = {
+                options = {
+                    section_separators = { left = "", right = "" },
+                    component_separators = { left = "", right = "" },
+                },
+            },
+        },
+        {
+            "nvim-tree/nvim-tree.lua",
+            opts = {
+                view = { width = 40, side = "right", adaptive_size = true },
+            },
+            keys = {
+                { "<leader>f", "<cmd>NvimTreeToggle<cr>", desc = "Toggle file tree" },
+            },
+        },
+        {
+            "NeogitOrg/neogit",
+            lazy = true,
+            dependencies = {
+                "sindrets/diffview.nvim",
+                "m00qek/baleia.nvim",
+            },
+            cmd = "Neogit",
+            keys = {
+                { "<leader>g", "<cmd>Neogit<cr>", desc = "Show Neogit UI" },
+            },
+        },
+        {
+            "ibhagwan/fzf-lua",
+            opts = {},
+            keys = {
+                { "<leader>sf", "<cmd>FzfLua files<cr>",     desc = "Find files" },
+                { "<leader>sg", "<cmd>FzfLua live_grep<cr>", desc = "Live grep" },
+                { "<leader>sb", "<cmd>FzfLua buffers<cr>",   desc = "Find buffers" },
+                { "<leader>sm", "<cmd>FzfLua manpages<cr>",  desc = "Find manpages" },
+            },
+        },
+        { "lewis6991/gitsigns.nvim",       opts = {} },
+        { "christoomey/vim-tmux-navigator" },
     },
     install = { colorscheme = { "habamax" } },
     checker = { enabled = true },
 })
 
-require("mason").setup()
-require("mason-lspconfig").setup()
-require("lazydev").setup()
+vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format, { desc = "Format buffer" })
+vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostics" })
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
 
-vim.keymap.set("n", "<leader>lf", vim.lsp.buf.format)
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-vim.keymap.set("n", "gd", vim.lsp.buf.definition)
+vim.keymap.set("n", "<leader>m", "<cmd>make<cr>", { desc = "Run make" })
+vim.keymap.set("n", "<leader>j", "<cmd>cnext<cr>", { desc = "Next quickfix item" })
+vim.keymap.set("n", "<leader>k", "<cmd>cprev<cr>", { desc = "Previous quickfix item" })
 
-require("blink.cmp").setup({
-    fuzzy = { implementation = "prefer_rust" },
-    keymap = { preset = "super-tab" },
-})
+vim.keymap.set("n", "<leader>w", "<cmd>update<cr>", { desc = "Save buffer" })
+vim.keymap.set("n", "<leader>q", "<cmd>quit<cr>", { desc = "Quit window" })
 
-require("tiny-inline-diagnostic").setup()
-
-require("venv-selector").setup()
-vim.keymap.set("n", "<leader>v", ":VenvSelect<CR>")
-
-require("gitsigns").setup()
-
-require("mini.icons").setup()
-require("mini.icons").mock_nvim_web_devicons()
-require("mini.pairs").setup()
-require("mini.surround").setup()
-
-require("nvim-tree").setup({
-    view = { width = 40, side = "right", adaptive_size = true },
-})
-vim.keymap.set("n", "<leader>f", ":NvimTreeToggle<CR>")
-
-vim.keymap.set("n", "<leader>m", ":make<CR>")
-vim.keymap.set("n", "<leader>j", ":cnext<CR>")
-vim.keymap.set("n", "<leader>k", ":cprev<CR>")
-
-vim.keymap.set("n", "<leader>o", ":update<CR>:source<CR>")
-vim.keymap.set("n", "<leader>w", ":update<CR>")
-vim.keymap.set("n", "<leader>q", ":quit<CR>")
-
-vim.keymap.set("v", "<C-y>", '"+y')
-vim.keymap.set("n", "<C-p>", '"+p')
-vim.keymap.set("v", "<C-p>", '"+P')
-
-vim.keymap.set("n", "<leader>sf", ":FzfLua files<CR>")
-vim.keymap.set("n", "<leader>sg", ":FzfLua live_grep<CR>")
-vim.keymap.set("n", "<leader>sb", ":FzfLua buffers<CR>")
-vim.keymap.set("n", "<leader>sm", ":FzfLua manpages<CR>")
-
-vim.keymap.set("n", "<leader>g", ":Neogit<CR>")
+vim.keymap.set("v", "<C-y>", '"+y', { desc = "Copy to system clipboard" })
+vim.keymap.set("n", "<C-p>", '"+p', { desc = "Paste from system clipboard" })
+vim.keymap.set("v", "<C-p>", '"+P', { desc = "Paste from system clipboard" })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
     desc = "Highlight when yanking (copying) text",
@@ -195,4 +219,4 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
-vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<cr>")
