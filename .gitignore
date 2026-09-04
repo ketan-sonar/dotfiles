@@ -1,7 +1,5 @@
 .DS_Store
 MANIFEST.local
 tmux/plugins/
-zsh/.zcompcache/
-zsh/completions/
-zsh/plugins/
+ghostty/shaders/
 nvim/lazy-lock.json
