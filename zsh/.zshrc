@@ -50,7 +50,7 @@ eval "$(starship init zsh)"
 
 ### PLUGINS SETUP ###
 
-ZPLUGINDIR="$HOME/.zsh/plugins"
+ZPLUGINDIR="$HOME/.local/state/zsh/plugins"
 
 _zplugin_load() {
     local plugin_path="${ZPLUGINDIR}/${2}"

@@ -140,6 +140,29 @@ require("lazy").setup({
             end,
         },
         {
+            "stevearc/conform.nvim",
+            opts = {
+                formatters_by_ft = {
+                    lua = { "stylua" },
+                    python = { "blue" },
+                    rust = { "rustfmt" },
+                    go = { "gofmt" },
+                },
+            },
+            keys = {
+                {
+                    "<leader>cf",
+                    function()
+                        require("conform").format({
+                            async = true,
+                            lsp_fallback = true,
+                        })
+                    end,
+                    desc = "Format buffer",
+                },
+            },
+        },
+        {
             "nvim-mini/mini.nvim",
             version = false,
             config = function()
@@ -160,12 +183,18 @@ require("lazy").setup({
         },
         {
             "nvim-tree/nvim-tree.lua",
+            lazy = false,
             opts = {
                 view = { width = 40, side = "right", adaptive_size = true },
             },
             keys = {
                 { "<leader>f", "<cmd>NvimTreeToggle<cr>", desc = "Toggle file tree" },
             },
+            config = function(_, opts)
+                vim.g.loaded_netrw = 1
+                vim.g.loaded_netrwPlugin = 1
+                require("nvim-tree").setup(opts)
+            end
         },
         {
             "NeogitOrg/neogit",
